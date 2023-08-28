@@ -1,0 +1,52 @@
+name: Update from upstream
+on:
+  schedule: [cron: '12 4 * * *']
+  workflow_dispatch:
+jobs:
+  Fetch-Files:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install required packages
+        run: sudo apt install libxml2-utils pandoc
+      - uses: actions/checkout@v3
+      - name: Prepare Git environment
+        run: |
+          git config --global user.name "Benjamin Somers"
+          git config --global user.email benjamin.somers@imt-atlantique.fr
+      - name: Fetch last LICENSE
+        run: curl https://cwe.mitre.org/about/termsofuse.html | xmllint --html -xpath "//*[preceding-sibling::comment()[1][contains(., 'begin Main Content')]][following-sibling::comment()[1][contains(., 'end Main Content')]]" - | pandoc --from=html --to=gfm-raw_html > LICENSE.md
+      - name: Commit new LICENSE
+        run: |
+          git add LICENSE.md
+          if git commit -m "Update LICENSE"
+          then
+            git push origin latest
+          else
+            echo "Nothing to do"
+          fi
+      - name: Fetch last CWE data
+        run: |
+          curl -o data.zip https://cwe.mitre.org/data/xml/cwec_latest.xml.zip
+          unzip -d tmp data.zip
+          for file in tmp/*
+          do
+            mv "$file" data.xml
+          done
+          rm data.zip
+          rmdir tmp
+      - name: Fetch last CWE schema
+        run: curl -o schema.xsd https://cwe.mitre.org/data/xsd/cwe_schema_latest.xsd
+      - name: Commit new files
+        run: |
+          DATA_VERSION=$(xmllint -xpath "string(/*/@Version)" data.xml)
+          SCHEMA_VERSION=$(xmllint -xpath "string(/*/@version)" schema.xsd)
+          VERSION="Version $DATA_VERSION (schema $SCHEMA_VERSION)"
+          git add data.xml schema.xsd
+          if git commit -m "Automatic update: $VERSION"
+          then
+            TAG="$DATA_VERSION+$SCHEMA_VERSION"
+            git tag -a "$TAG" -m "$VERSION"
+            git push --atomic origin latest "$TAG"
+          else
+            echo "Nothing to do"
+          fi
