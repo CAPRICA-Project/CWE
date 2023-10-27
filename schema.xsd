@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema targetNamespace="http://cwe.mitre.org/cwe-7" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:cwe="http://cwe.mitre.org/cwe-7" xmlns:xhtml="http://www.w3.org/1999/xhtml" elementFormDefault="qualified" attributeFormDefault="unqualified" version="7.0">
+<xs:schema targetNamespace="http://cwe.mitre.org/cwe-7" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:cwe="http://cwe.mitre.org/cwe-7" xmlns:xhtml="http://www.w3.org/1999/xhtml" elementFormDefault="qualified" attributeFormDefault="unqualified" version="7.1">
 	<xs:import namespace="http://www.w3.org/1999/xhtml" schemaLocation="http://www.w3.org/2002/08/xhtml/xhtml1-strict.xsd"/>
     <xs:annotation>
         <xs:documentation>The CWE Schema is maintained by The MITRE Corporation and developed in partnership with the public CWE Community. For more information, including how to get involved in the project and how to submit change requests, please visit the CWE website at https://cwe.mitre.org.</xs:documentation>
         <xs:appinfo>
             <schema>Core Definition</schema>
-            <version>7.0</version>
-            <date>June 29, 2023</date>
+            <version>7.1</version>
+            <date>October 26, 2023</date>
             <terms_of_use>Copyright (c) 2006-2023, The MITRE Corporation. All rights reserved. The contents of this file are subject to the terms of the CWE License located at https://cwe.mitre.org/about/termsofuse.html. See the CWE License for the specific language governing permissions and limitations for use of this schema. When distributing copies of the CWE Schema, this license header must be included.</terms_of_use>
         </xs:appinfo>
     </xs:annotation>
@@ -103,7 +103,7 @@
 			<xs:element name="Taxonomy_Mappings" type="cwe:TaxonomyMappingsType" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="Related_Attack_Patterns" type="cwe:RelatedAttackPatternsType" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="References" type="cwe:ReferencesType" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="Mapping_Notes" type="cwe:MappingNotesType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Mapping_Notes" type="cwe:MappingNotesType" minOccurs="1" maxOccurs="1"/>
 			<xs:element name="Notes" type="cwe:NotesType" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="Content_History" type="cwe:ContentHistoryType" minOccurs="1" maxOccurs="1"/>
 		</xs:sequence>
@@ -127,7 +127,7 @@
 			<xs:element name="Relationships" type="cwe:RelationshipsType" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="Taxonomy_Mappings" type="cwe:TaxonomyMappingsType" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="References" type="cwe:ReferencesType" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="Mapping_Notes" type="cwe:MappingNotesType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Mapping_Notes" type="cwe:MappingNotesType" minOccurs="1" maxOccurs="1"/>
 			<xs:element name="Notes" type="cwe:NotesType" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="Content_History" type="cwe:ContentHistoryType" minOccurs="1" maxOccurs="1"/>
 		</xs:sequence>
@@ -150,7 +150,7 @@
 			<xs:element name="Members" type="cwe:RelationshipsType" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="Filter" type="xs:string" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="References" type="cwe:ReferencesType" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="Mapping_Notes" type="cwe:MappingNotesType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Mapping_Notes" type="cwe:MappingNotesType" minOccurs="1" maxOccurs="1"/>
 			<xs:element name="Notes" type="cwe:NotesType" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="Content_History" type="cwe:ContentHistoryType" minOccurs="1" maxOccurs="1"/>
 		</xs:sequence>
@@ -278,7 +278,7 @@
 				<xs:complexType>
 					<xs:sequence>
 						<xs:element name="Scope" type="cwe:ScopeEnumeration" minOccurs="1" maxOccurs="unbounded"/>
-						<xs:element name="Impact" type="cwe:TechnicalImpactEnumeration" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element name="Impact" type="cwe:TechnicalImpactEnumeration" minOccurs="1" maxOccurs="unbounded"/>
 						<xs:element name="Likelihood" type="cwe:LikelihoodEnumeration" minOccurs="0" maxOccurs="1"/>
 						<xs:element name="Note" type="cwe:StructuredTextType" minOccurs="0" maxOccurs="1"/>
 					</xs:sequence>
